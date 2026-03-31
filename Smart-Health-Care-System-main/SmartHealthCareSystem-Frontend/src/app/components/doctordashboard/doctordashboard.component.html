@@ -1,0 +1,96 @@
+<app-header></app-header>
+
+<div class="dashboard-shell">
+  <button class="menuToggle"><i class="fa fa-bars"></i></button>
+
+  <div class="dashboard-layout">
+    <aside class="menu">
+      <div class="profile-panel">
+        <div class="profile-avatar">
+          <img *ngIf="gender === 'male' || gender === 'Male'" [src]="'assets/img/maledoctor.png'" alt="Doctor">
+          <img *ngIf="gender === 'female' || gender === 'Female'" [src]="'assets/img/femaledoctor.png'" alt="Doctor">
+        </div>
+        <h3>{{ loggedUser }}</h3>
+        <p>Doctor workspace</p>
+      </div>
+
+      <ul>
+        <li><a [routerLink]="['/editdoctorprofile']"><i class="fa fa-edit"></i><span>Edit Profile</span></a></li>
+        <li><a [routerLink]="['/approvalstatus']"><i class="fa fa-check"></i><span>Approval Status</span></a></li>
+        <li><a [routerLink]="['/scheduleslots']"><i class="fa fa-clock-o"></i><span>Your Schedule</span></a></li>
+        <li><a [routerLink]="['/doctorlist']"><i class="fa fa-user-md"></i><span>Doctor List</span></a></li>
+        <li><a [routerLink]="['/patientlist']"><i class="fa fa-user-o"></i><span>Patients</span></a></li>
+        <li><a [routerLink]="['/appointments']"><i class="fa fa-calendar"></i><span>Appointments</span></a></li>
+        <li><a [routerLink]="['/addprescription']"><i class="fa fa-sticky-note-o"></i><span>Add Prescriptions</span></a></li>
+        <li><a [routerLink]="['/careoperations']"><i class="fa fa-sitemap"></i><span>Operations Center</span></a></li>
+      </ul>
+    </aside>
+
+    <main class="dashboard-content">
+      <section class="dashboard-hero app-hero-gradient app-fade-up">
+        <div>
+          <p class="app-section-tag dashboard-kicker">Doctor Workspace</p>
+          <h1>Move through patients, appointments, and prescriptions with less friction.</h1>
+          <p>Use a calmer, more realistic doctor dashboard to manage schedules, patient load, and care planning from one place.</p>
+        </div>
+
+        <div class="hero-mini-cards">
+          <div class="mini-card">
+            <strong>Doctor</strong>
+            <span>Care delivery workspace</span>
+          </div>
+          <div class="mini-card">
+            <strong>Prescription Ready</strong>
+            <span>Appointments, notes, and medications linked together</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="stat-grid">
+        <article class="stat-card teal-card">
+          <div class="stat-icon"><i class="fa fa-sticky-note"></i></div>
+          <h3>Prescriptions</h3>
+          <p *ngFor="let prescription of prescriptions | async">{{prescription}} medications issued</p>
+        </article>
+
+        <article class="stat-card green-card">
+          <div class="stat-icon"><i class="fa fa-user"></i></div>
+          <h3>Total Doctors</h3>
+          <p *ngFor="let doctor of doctors | async">{{doctor}} doctors on platform</p>
+        </article>
+
+        <article class="stat-card rose-card">
+          <div class="stat-icon"><i class="fa fa-user-o"></i></div>
+          <h3>Total Patients</h3>
+          <p *ngFor="let patient of patients | async">{{patient}} patient records</p>
+        </article>
+
+        <article class="stat-card amber-card">
+          <div class="stat-icon"><i class="fa fa-calendar"></i></div>
+          <h3>Total Slots</h3>
+          <p *ngFor="let slot of slots | async">{{slot}} open schedule slots</p>
+        </article>
+      </section>
+
+      <section class="feature-banner app-glass-card app-fade-up">
+        <div>
+          <p class="app-section-tag">New flagship experience</p>
+          <h2>Future Care Hub</h2>
+          <p>Open the new all-in-one feature center for product workflows, AI and deep-learning demos, analytics, family care, reviews, reminders, and smart hospital capabilities.</p>
+        </div>
+        <button class="app-primary-btn" [routerLink]="['/futurecarehub']">Open Future Care Hub</button>
+      </section>
+
+      <section class="feature-banner app-glass-card app-fade-up">
+        <div>
+          <p class="app-section-tag">New operations module</p>
+          <h2>Care Operations Center</h2>
+          <p>See patient queue health, open schedule blocks, operational alerts, analytics, and revenue-style summaries in one place.</p>
+        </div>
+        <button class="app-primary-btn" [routerLink]="['/careoperations']">Open Operations Center</button>
+      </section>
+    </main>
+  </div>
+</div>
+
+<app-footer></app-footer>

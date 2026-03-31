@@ -1,0 +1,65 @@
+<div class="chatbot-shell" [class.chatbot-open]="isOpen">
+  <button class="chatbot-launcher" type="button" (click)="toggle()">
+    <span class="launcher-badge">AI</span>
+    <div class="launcher-copy">
+      <strong>Live Care Chat</strong>
+      <small>Personal intake + prediction</small>
+    </div>
+  </button>
+
+  <section class="chatbot-panel" *ngIf="isOpen">
+    <div class="chatbot-head">
+      <div>
+        <p class="chatbot-kicker">Smart assistant</p>
+        <h3>Live Care Chatbot</h3>
+        <span>Visible on every page of the application</span>
+      </div>
+      <button class="chatbot-close" type="button" (click)="toggle()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+
+    <div class="chatbot-status-row">
+      <div class="status-pill">
+        <strong>Page</strong>
+        <span>{{ currentPageLabel }}</span>
+      </div>
+      <div class="status-pill">
+        <strong>Mode</strong>
+        <span>{{ currentStage ? 'Collecting details' : 'Ready to chat' }}</span>
+      </div>
+    </div>
+
+    <div class="quick-prompt-row">
+      <button type="button" class="quick-prompt" *ngFor="let prompt of quickPrompts" (click)="askQuickPrompt(prompt)">
+        {{ prompt }}
+      </button>
+    </div>
+
+    <div class="chat-stream">
+      <article class="chat-bubble" *ngFor="let message of messages" [ngClass]="message.sender">
+        <p>{{ message.text }}</p>
+        <div class="chat-actions" *ngIf="message.actions?.length">
+          <button type="button" class="chat-action" *ngFor="let action of message.actions" (click)="handleAction(action)">
+            {{ action.label }}
+          </button>
+        </div>
+      </article>
+
+      <article class="chat-bubble assistant loading" *ngIf="isLoading">
+        <p>I have everything I need. I am now analyzing your information and preparing the predicted result.</p>
+      </article>
+    </div>
+
+    <div class="chat-entry">
+      <textarea
+        [(ngModel)]="input"
+        name="chatbotInput"
+        placeholder="Type naturally. I can do small talk, then collect your details one by one before giving the prediction."
+      ></textarea>
+      <button type="button" class="chat-send" (click)="sendMessage()" [disabled]="isLoading || !input.trim()">
+        Send
+      </button>
+    </div>
+  </section>
+</div>

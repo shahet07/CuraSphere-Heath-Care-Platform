@@ -1,0 +1,105 @@
+<app-header></app-header>
+
+<div class="dashboard-shell">
+  <button class="menuToggle"><i class="fa fa-bars"></i></button>
+
+  <div class="dashboard-layout">
+    <aside class="menu">
+      <div class="profile-panel">
+        <div class="profile-avatar">
+          <img *ngIf="gender === 'male' || gender === 'Male'" [src]="'assets/img/maleuser.png'" alt="User">
+          <img *ngIf="gender === 'female' || gender === 'Female'" [src]="'assets/img/femaleuser.png'" alt="User">
+        </div>
+        <h3>{{ loggedUser }}</h3>
+        <p>Patient portal</p>
+      </div>
+
+      <ul>
+        <li><a [routerLink]="['/edituserprofile']"><i class="fa fa-edit"></i><span>Edit Profile</span></a></li>
+        <li><a [routerLink]="['/doctorlist']"><i class="fa fa-user-md"></i><span>Doctor List</span></a></li>
+        <li><a [routerLink]="['/checkslots']"><i class="fa fa-clock-o"></i><span>Check Slots</span></a></li>
+        <li><a [routerLink]="['/bookappointment']"><i class="fa fa-calendar"></i><span>New Appointment</span></a></li>
+        <li><a [routerLink]="['/approvalstatus']"><i class="fa fa-check"></i><span>Approval Status</span></a></li>
+        <li><a [routerLink]="['/prescriptionlist']"><i class="fa fa-sticky-note-o"></i><span>Your Prescription</span></a></li>
+        <li><a [routerLink]="['/aiassistant']"><i class="fa fa-heartbeat"></i><span>AI Health Assistant</span></a></li>
+        <li><a [routerLink]="['/careoperations']"><i class="fa fa-sitemap"></i><span>Care Operations</span></a></li>
+      </ul>
+    </aside>
+
+    <main class="dashboard-content">
+      <section class="dashboard-hero app-hero-gradient app-fade-up">
+        <div>
+          <p class="app-section-tag dashboard-kicker">User Workspace</p>
+          <h1>Manage your care journey in one animated dashboard.</h1>
+          <p>Track appointments, find doctors, review prescriptions, and jump into the AI assistant without leaving the same experience.</p>
+        </div>
+
+        <div class="hero-mini-cards">
+          <div class="mini-card">
+            <strong>{{ currRole | uppercase }}</strong>
+            <span>Current workspace</span>
+          </div>
+          <div class="mini-card">
+            <strong>AI Ready</strong>
+            <span>Book from the chatbot flow</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="stat-grid">
+        <article class="stat-card teal-card">
+          <div class="stat-icon"><i class="fa fa-user-md"></i></div>
+          <h3>Total Doctors</h3>
+          <p *ngFor="let doctor of doctors | async">{{doctor}} doctors available</p>
+        </article>
+
+        <article class="stat-card amber-card">
+          <div class="stat-icon"><i class="fa fa-user"></i></div>
+          <h3>Total Users</h3>
+          <p *ngFor="let user of users | async">{{user}} active users</p>
+        </article>
+
+        <article class="stat-card rose-card">
+          <div class="stat-icon"><i class="fa fa-user-o"></i></div>
+          <h3>Total Patients</h3>
+          <p *ngFor="let patient of patients | async">{{patient}} patient profiles</p>
+        </article>
+
+        <article class="stat-card green-card">
+          <div class="stat-icon"><i class="fa fa-calendar"></i></div>
+          <h3>Total Slots</h3>
+          <p *ngFor="let slot of slots | async">{{slot}} slots available</p>
+        </article>
+      </section>
+
+      <section class="feature-banner app-glass-card app-fade-up">
+        <div>
+          <p class="app-section-tag">Featured module</p>
+          <h2>AI Health Assistant</h2>
+          <p>Get disease prediction, doctor recommendation, no-show risk, prescription support, patient scoring, and triage guidance in one experience.</p>
+        </div>
+        <button class="app-primary-btn" [routerLink]="['/aiassistant']">Open AI Assistant</button>
+      </section>
+
+      <section class="feature-banner app-glass-card app-fade-up">
+        <div>
+          <p class="app-section-tag">New flagship experience</p>
+          <h2>Future Care Hub</h2>
+          <p>Open the new all-in-one feature center for product workflows, AI and deep-learning demos, analytics, family care, reviews, reminders, and smart hospital capabilities.</p>
+        </div>
+        <button class="app-primary-btn" [routerLink]="['/futurecarehub']">Open Future Care Hub</button>
+      </section>
+
+      <section class="feature-banner app-glass-card app-fade-up">
+        <div>
+          <p class="app-section-tag">New operations module</p>
+          <h2>Care Operations Center</h2>
+          <p>Track your appointment lifecycle, notifications, record highlights, billing estimate, slot coverage, and next best actions in one role-aware dashboard.</p>
+        </div>
+        <button class="app-primary-btn" [routerLink]="['/careoperations']">Open Operations Center</button>
+      </section>
+    </main>
+  </div>
+</div>
+
+<app-footer></app-footer>

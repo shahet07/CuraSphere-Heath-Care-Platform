@@ -1,0 +1,54 @@
+<app-header></app-header>
+
+<div class="appointment-success-shell">
+  <section class="appointment-success-card">
+    <div class="success-badge">
+      <i class="fa fa-check-circle"></i>
+      Appointment Confirmed
+    </div>
+
+    <h1>Thanks for booking your appointment.</h1>
+    <p class="success-copy">
+      Your appointment details have been sent to
+      <strong>{{ email || 'your Gmail address' }}</strong>.
+    </p>
+
+    <div class="success-grid">
+      <div class="success-item">
+        <span>Patient</span>
+        <strong>{{ patientName || 'Not provided' }}</strong>
+      </div>
+      <div class="success-item">
+        <span>Doctor</span>
+        <strong>{{ doctorName || 'Will be shared soon' }}</strong>
+      </div>
+      <div class="success-item">
+        <span>Specialization</span>
+        <strong>{{ specialization || 'General Consultation' }}</strong>
+      </div>
+      <div class="success-item">
+        <span>Date</span>
+        <strong>{{ date || 'Pending confirmation' }}</strong>
+      </div>
+      <div class="success-item">
+        <span>Slot</span>
+        <strong>{{ slot || 'Pending confirmation' }}</strong>
+      </div>
+      <div class="success-item">
+        <span>Patient ID</span>
+        <strong>{{ patientId || 'Generating...' }}</strong>
+      </div>
+    </div>
+
+    <div class="success-note">
+      Please check your inbox and spam folder for the appointment confirmation email.
+    </div>
+
+    <div class="success-actions">
+      <a routerLink="/userdashboard" class="app-primary-btn">Go To Dashboard</a>
+      <a routerLink="/bookappointment" class="app-secondary-btn">Book Another Appointment</a>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

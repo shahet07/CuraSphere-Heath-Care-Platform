@@ -1,0 +1,36 @@
+<header class="smart-header">
+  <div class="header-shell">
+    <button class="brand-cluster" type="button" (click)="navigateHome()">
+      <span class="brand-mark"><i class="fa fa-heartbeat"></i></span>
+      <span class="brand-copy">
+        <small>Smart Care Platform</small>
+        <strong>{{ title || 'Healthcare Workspace' }}</strong>
+      </span>
+    </button>
+
+    <div class="header-actions">
+      <button type="button" class="header-link" (click)="navigateHome()">
+        <i class="fa fa-home"></i>
+        <span>Home</span>
+      </button>
+
+      <div class="header-user-pill">
+        <span class="user-avatar"><i class="fa fa-user-md"></i></span>
+        <div class="user-meta">
+          <small>Signed in as</small>
+          <strong>{{ loggedUser }}</strong>
+        </div>
+      </div>
+
+      <div class="header-role-pill">
+        <i class="fa fa-shield"></i>
+        <span>{{ currRole | uppercase }}</span>
+      </div>
+
+      <button type="button" class="header-link logout-link" (click)="logout()">
+        <i class="fa fa-sign-out"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </div>
+</header>

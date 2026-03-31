@@ -1,0 +1,187 @@
+<div class="registration-shell">
+  <div class="registration-stage app-glass-card">
+    <section class="register-left app-hero-gradient">
+      <div class="register-left-copy">
+        <p class="app-section-tag register-kicker">Create profile</p>
+        <h2>Build your new care identity here.</h2>
+        <p>
+          Register as a patient or doctor and step into a more modern hospital workflow with appointments, AI support, and role-based dashboards.
+        </p>
+
+        <div class="left-visual">
+          <img [src]="'assets/img/healthcaresystem.png'" alt="Healthcare">
+        </div>
+
+        <div class="left-cta">
+          <p>Already have an account?</p>
+          <button class="app-primary-btn" [routerLink]="['/login']" name="loginbtn">Login here</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="register-right">
+      <div class="register-top">
+        <div>
+          <p class="app-section-tag">Two registration journeys</p>
+          <h3 class="register-heading">Create Account</h3>
+        </div>
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link nav1" id="home-tab" data-toggle="tab" data-target="#home" role="tab" aria-controls="home" aria-selected="true">User</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav2" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">Doctor</a>
+          </li>
+        </ul>
+      </div>
+
+      <small class="text-danger register-error"><b>{{msg}}</b></small>
+
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <form #userform="ngForm" (ngSubmit)="registerUser()">
+            <div class="register-form-grid">
+              <div class="form-group">
+                <label>User Name</label>
+                <input type="text" class="app-field" placeholder="User name" name="username" [(ngModel)]="user.username" required #username="ngModel" [class.is-invalid]="username.invalid && username.touched">
+                <small class="text-danger" [class.d-none]="username.valid || username.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" class="app-field" placeholder="Email address" name="useremail" [(ngModel)]="user.email" required pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" #useremail="ngModel" [class.is-invalid]="useremail.invalid && useremail.touched">
+                <div *ngIf="useremail.errors && (useremail.invalid && useremail.touched)">
+                  <small class="text-danger" *ngIf="useremail.errors.required"><b>required field</b></small>
+                  <small class="text-danger" *ngIf="useremail.errors.pattern"><b>Invalid email Id</b></small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Gender</label>
+                <input type="text" class="app-field" placeholder="Gender" name="usergender" [(ngModel)]="user.gender" required #usergender="ngModel" [class.is-invalid]="usergender.invalid && usergender.touched">
+                <small class="text-danger" [class.d-none]="usergender.valid || usergender.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Mobile</label>
+                <input type="tel" maxlength="10" minlength="10" class="app-field" placeholder="Mobile" name="usermobile" [(ngModel)]="user.mobile" required #usermobile="ngModel" [class.is-invalid]="usermobile.invalid && usermobile.touched">
+                <small class="text-danger" [class.d-none]="usermobile.valid || usermobile.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Age</label>
+                <input type="number" class="app-field" placeholder="Age" name="userage" [(ngModel)]="user.age" required #userage="ngModel" [class.is-invalid]="userage.invalid && userage.touched">
+                <small class="text-danger" [class.d-none]="userage.valid || userage.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="app-field" placeholder="Address" name="useraddress" [(ngModel)]="user.address" required #useraddress="ngModel" [class.is-invalid]="useraddress.invalid && useraddress.touched">
+                <small class="text-danger" [class.d-none]="useraddress.valid || useraddress.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="app-field" placeholder="Password" name="pwd" [(ngModel)]="user.password" required #userpassword="ngModel" [class.is-invalid]="userpassword.invalid && userpassword.touched">
+                <div *ngIf="userpassword.errors && userpassword.invalid && userpassword.touched">
+                  <small class="text-danger" *ngIf="userpassword.errors.required"><b>required field</b></small>
+                </div>
+                <small class="helper-text">At least one uppercase, one lowercase, one numeric digit, one special character, length 6-20.</small>
+              </div>
+
+              <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" class="app-field" placeholder="Confirm password" name="ConfirmPassword" [(ngModel)]="user.password" required #userconfirmPassword="ngModel" [class.is-invalid]="userconfirmPassword.invalid && userconfirmPassword.touched">
+                <small class="text-danger" [class.d-none]="(userconfirmPassword.value == userpassword.value) || userconfirmPassword.untouched"><b>password not matched</b></small>
+              </div>
+            </div>
+
+            <div class="register-submit-row">
+              <label class="terms-check"><input type="checkbox" class="checkbox" name="remember" required> I agree to all Terms & Conditions</label>
+              <button [disabled]="userform.form.invalid" type="submit" class="app-secondary-btn">Register User</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <form #doctorform="ngForm" (ngSubmit)="registerDoctor()">
+            <div class="register-form-grid">
+              <div class="form-group">
+                <label>Doctor Name</label>
+                <input type="text" class="app-field" placeholder="Doctor name" name="doctorname" [(ngModel)]="doctor.doctorname" required #doctorname="ngModel" [class.is-invalid]="doctorname.invalid && doctorname.touched">
+                <small class="text-danger" [class.d-none]="doctorname.valid || doctorname.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" class="app-field" placeholder="Email address" name="doctoremail" [(ngModel)]="doctor.email" required pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" #doctoremail="ngModel" [class.is-invalid]="doctoremail.invalid && doctoremail.touched">
+                <div *ngIf="doctoremail.errors && (doctoremail.invalid && doctoremail.touched)">
+                  <small class="text-danger" *ngIf="doctoremail.errors.required"><b>required field</b></small>
+                  <small class="text-danger" *ngIf="doctoremail.errors.pattern"><b>Invalid email Id</b></small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Gender</label>
+                <input type="text" class="app-field" placeholder="Gender" name="doctorgender" [(ngModel)]="doctor.gender" required #doctorgender="ngModel" [class.is-invalid]="doctorgender.invalid && doctorgender.touched">
+                <small class="text-danger" [class.d-none]="doctorgender.valid || doctorgender.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Mobile</label>
+                <input type="tel" maxlength="10" minlength="10" class="app-field" placeholder="Mobile" name="doctormobile" [(ngModel)]="doctor.mobile" required #doctormobile="ngModel" [class.is-invalid]="doctormobile.invalid && doctormobile.touched">
+                <small class="text-danger" [class.d-none]="doctormobile.valid || doctormobile.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Specialization</label>
+                <input type="text" class="app-field" placeholder="Specialization" name="specialization" [(ngModel)]="doctor.specialization" required #specialization="ngModel" [class.is-invalid]="specialization.invalid && specialization.touched">
+                <small class="text-danger" [class.d-none]="specialization.valid || specialization.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Experience</label>
+                <input type="number" class="app-field" placeholder="Years of experience" name="experience" [(ngModel)]="doctor.experience" required #experience="ngModel" [class.is-invalid]="experience.invalid && experience.touched">
+                <small class="text-danger" [class.d-none]="experience.valid || experience.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Previous Hospital</label>
+                <input type="text" class="app-field" placeholder="Previous working hospital" name="previoushospital" [(ngModel)]="doctor.previoushospital" required #previoushospital="ngModel" [class.is-invalid]="previoushospital.invalid && previoushospital.touched">
+                <small class="text-danger" [class.d-none]="previoushospital.valid || previoushospital.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="app-field" placeholder="Address" name="doctoraddress" [(ngModel)]="doctor.address" required #doctoraddress="ngModel" [class.is-invalid]="doctoraddress.invalid && doctoraddress.touched">
+                <small class="text-danger" [class.d-none]="doctoraddress.valid || doctoraddress.untouched"><b>required field</b></small>
+              </div>
+
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="app-field" placeholder="Password" name="pwd" [(ngModel)]="doctor.password" required #doctorpassword="ngModel" [class.is-invalid]="doctorpassword.invalid && doctorpassword.touched">
+                <div *ngIf="doctorpassword.errors && doctorpassword.invalid && doctorpassword.touched">
+                  <small class="text-danger" *ngIf="doctorpassword.errors.required"><b>required field</b></small>
+                </div>
+                <small class="helper-text">At least one uppercase, one lowercase, one numeric digit, one special character, length 6-20.</small>
+              </div>
+
+              <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" class="app-field" placeholder="Confirm password" name="ConfirmPassword" [(ngModel)]="doctor.password" required #doctorconfirmPassword="ngModel" [class.is-invalid]="doctorconfirmPassword.invalid && doctorconfirmPassword.touched">
+                <small class="text-danger" [class.d-none]="(doctorconfirmPassword.value == doctorpassword.value) || doctorconfirmPassword.untouched"><b>password not matched</b></small>
+              </div>
+            </div>
+
+            <div class="register-submit-row">
+              <label class="terms-check"><input type="checkbox" class="checkbox" name="remember" required> I agree to all Terms & Conditions</label>
+              <button [disabled]="doctorform.form.invalid" type="submit" class="app-secondary-btn">Register Doctor</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<app-footer></app-footer>

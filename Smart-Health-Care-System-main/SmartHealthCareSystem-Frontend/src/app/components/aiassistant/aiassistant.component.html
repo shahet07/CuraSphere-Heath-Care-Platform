@@ -1,0 +1,510 @@
+<app-header></app-header>
+
+<div class="assistant-shell">
+  <div class="hero-card">
+    <div class="hero-copy">
+      <p class="eyebrow">AI + Machine Learning</p>
+      <h1>AI Health Assistant</h1>
+      <p class="intro">
+        A polished smart-clinic workspace for symptom-based disease prediction, doctor recommendation,
+        appointment no-show prediction, prescription support, patient risk scoring, and basic triage guidance.
+      </p>
+
+      <div class="hero-badges">
+        <span>Clinical Decision Support</span>
+        <span>Risk Intelligence</span>
+        <span>Doctor Matching</span>
+        <span>NLP Symptom Parsing</span>
+        <span>Smart Slot Ranking</span>
+        <span>Report Summaries</span>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-pill">
+          <strong>10</strong>
+          <span>AI modules</span>
+        </div>
+        <div class="stat-pill">
+          <strong>1</strong>
+          <span>Unified workflow</span>
+        </div>
+        <div class="stat-pill">
+          <strong>24/7</strong>
+          <span>Triage assistance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="glow-ring ring-one"></div>
+      <div class="glow-ring ring-two"></div>
+      <img class="hero-main-image" [src]="'assets/img/healthcaresystem.png'" alt="Healthcare AI illustration">
+
+      <div class="floating-visual card-doctor">
+        <img [src]="'assets/img/maledoctor.png'" alt="Doctor recommendation">
+        <div>
+          <strong>Smart Doctor Match</strong>
+          <span>Find the right specialization faster</span>
+        </div>
+      </div>
+
+      <div class="floating-visual card-medicine">
+        <img [src]="'assets/img/medicinelogo.png'" alt="Prescription support">
+        <div>
+          <strong>Prescription Safety</strong>
+          <span>Allergy and medication checks</span>
+        </div>
+      </div>
+
+      <div class="floating-visual card-success">
+        <img [src]="'assets/img/success.gif'" alt="Successful care journey">
+        <div>
+          <strong>Realistic Care Flow</strong>
+          <span>From intake to insights in one immersive module</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-strip">
+    <div class="action-text">
+      <strong>AI workflow ready</strong>
+      <span>Fill the patient profile, add symptoms, then generate insights to simulate a realistic smart hospital assistant.</span>
+    </div>
+    <button class="primary-btn" (click)="generateInsights()" [disabled]="loading">
+      {{ loading ? 'Generating...' : 'Generate AI Insights' }}
+    </button>
+  </div>
+
+  <section class="preset-panel">
+    <div class="preset-heading">
+      <div>
+        <p class="section-kicker">Quick Demo Stories</p>
+        <h2>Choose a realistic patient scenario</h2>
+      </div>
+      <span class="active-preset">Active: {{ activePresetLabel }}</span>
+    </div>
+
+    <div class="preset-grid">
+      <article class="preset-card" *ngFor="let preset of demoPresets" [ngClass]="preset.accentClass">
+        <img class="preset-visual" [src]="preset.visual" [alt]="preset.label">
+        <div class="preset-copy">
+          <strong>{{ preset.label }}</strong>
+          <p>{{ preset.subtitle }}</p>
+          <button type="button" class="preset-btn" (click)="applyPreset(preset)">Use Demo Data</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div class="form-grid">
+    <section class="panel form-panel">
+      <div class="panel-header">
+        <div>
+          <p class="section-kicker">Patient Story</p>
+          <h2>Patient Inputs</h2>
+        </div>
+        <img class="panel-avatar" [src]="form.gender === 'Female' ? 'assets/img/femaleuser.png' : 'assets/img/maleuser.png'" alt="Patient avatar">
+      </div>
+
+      <div class="snapshot-strip">
+        <div class="snapshot-card">
+          <span>Current Mode</span>
+          <strong>{{ activePresetLabel }}</strong>
+        </div>
+        <div class="snapshot-card">
+          <span>Vitals Focus</span>
+          <strong>{{ form.temperature }} F | BMI {{ form.bmi }}</strong>
+        </div>
+        <div class="snapshot-card">
+          <span>Primary Need</span>
+          <strong>{{ form.specializationPreference || 'General triage' }}</strong>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <label>
+          Patient Name
+          <input [(ngModel)]="form.patientName" name="patientName" />
+        </label>
+        <label>
+          Email
+          <input [(ngModel)]="form.email" name="email" />
+        </label>
+        <label>
+          Gender
+          <select [(ngModel)]="form.gender" name="gender">
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>
+          Age
+          <input type="number" [(ngModel)]="form.age" name="age" />
+        </label>
+        <label>
+          Temperature (F)
+          <input type="number" step="0.1" [(ngModel)]="form.temperature" name="temperature" />
+        </label>
+        <label>
+          BMI
+          <input type="number" step="0.1" [(ngModel)]="form.bmi" name="bmi" />
+        </label>
+        <label>
+          Pain Level (1-10)
+          <input type="number" min="1" max="10" [(ngModel)]="form.painLevel" name="painLevel" />
+        </label>
+        <label>
+          Stress Level (1-10)
+          <input type="number" min="1" max="10" [(ngModel)]="form.stressLevel" name="stressLevel" />
+        </label>
+        <label>
+          Sleep Hours
+          <input type="number" min="0" max="12" [(ngModel)]="form.sleepHours" name="sleepHours" />
+        </label>
+        <label>
+          Distance To Hospital (km)
+          <input type="number" min="0" [(ngModel)]="form.distanceKm" name="distanceKm" />
+        </label>
+        <label>
+          Missed Appointments
+          <input type="number" min="0" [(ngModel)]="form.missedAppointments" name="missedAppointments" />
+        </label>
+        <label>
+          Lead Time For Appointment (days)
+          <input type="number" min="0" [(ngModel)]="form.leadTimeDays" name="leadTimeDays" />
+        </label>
+      </div>
+
+      <div class="field-grid">
+        <label class="wide">
+          Symptoms (comma separated)
+          <textarea [(ngModel)]="symptomInput" name="symptomInput"></textarea>
+        </label>
+        <label class="wide">
+          Symptom Narrative (free text)
+          <textarea [(ngModel)]="symptomNarrativeInput" name="symptomNarrativeInput" placeholder="Describe the case in natural language so the assistant can extract clinical intent, urgency, and likely specialty."></textarea>
+        </label>
+        <label class="wide">
+          Chronic Conditions (comma separated)
+          <textarea [(ngModel)]="chronicConditionInput" name="chronicConditionInput"></textarea>
+        </label>
+        <label class="wide">
+          Allergies (comma separated)
+          <textarea [(ngModel)]="allergyInput" name="allergyInput"></textarea>
+        </label>
+        <label class="wide">
+          Current Medicines (comma separated)
+          <textarea [(ngModel)]="medicineInput" name="medicineInput"></textarea>
+        </label>
+        <label class="wide">
+          Medical Report / Clinical Note
+          <textarea [(ngModel)]="reportTextInput" name="reportTextInput" placeholder="Paste a short report, clinician note, or lab summary to generate a patient-friendly explanation."></textarea>
+        </label>
+        <label class="wide">
+          Preferred Specialization
+          <input [(ngModel)]="form.specializationPreference" name="specializationPreference" placeholder="Optional" />
+        </label>
+        <label class="wide">
+          Preferred Appointment Date
+          <input type="date" [(ngModel)]="form.preferredDate" name="preferredDate" />
+        </label>
+        <label class="wide">
+          Triage Chat Question
+          <textarea [(ngModel)]="form.question" name="question"></textarea>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <label><input type="checkbox" [(ngModel)]="form.smoker" name="smoker" /> Smoker</label>
+        <label><input type="checkbox" [(ngModel)]="form.alcoholUse" name="alcoholUse" /> Alcohol Use</label>
+        <label><input type="checkbox" [(ngModel)]="form.familyHistory" name="familyHistory" /> Family History</label>
+        <label><input type="checkbox" [(ngModel)]="form.hasReminder" name="hasReminder" /> Reminder Scheduled</label>
+        <label><input type="checkbox" [(ngModel)]="form.weekendAppointment" name="weekendAppointment" /> Weekend Appointment</label>
+      </div>
+    </section>
+
+    <section class="panel info-panel">
+      <div class="panel-header">
+        <div>
+          <p class="section-kicker">Assistant Scope</p>
+          <h2>What This Module Does</h2>
+        </div>
+        <img class="panel-avatar assistant-avatar" [src]="'assets/img/medicinelogo.png'" alt="AI assistant">
+      </div>
+
+      <div class="module-illustration">
+        <img class="module-hero-image" [src]="'assets/img/healthcaresystem.png'" alt="Healthcare analytics">
+        <div class="module-overlay-card">
+          <strong>Realistic Workflow View</strong>
+          <span>Inputs, recommendations, risk, and triage in one immersive experience.</span>
+        </div>
+      </div>
+
+      <div class="insight-preview">
+        <div class="insight-preview-card">
+          <img [src]="'assets/img/femaledoctor.png'" alt="AI doctor assistant">
+          <div>
+            <strong>Care Team Lens</strong>
+            <span>Doctor matching, patient acuity, and next-step guidance.</span>
+          </div>
+        </div>
+        <div class="insight-preview-card">
+          <img [src]="'assets/img/success.gif'" alt="AI success flow">
+          <div>
+            <strong>Animated Status</strong>
+            <span>Designed to feel alive while still staying practical for demos.</span>
+          </div>
+        </div>
+      </div>
+
+      <ul>
+        <li>Predicts the most likely disease pattern from symptoms.</li>
+        <li>Analyzes free-text symptom narratives like a lightweight clinical NLP intake layer.</li>
+        <li>Recommends doctors based on specialization and live doctor records.</li>
+        <li>Ranks appointment slots using urgency, specialty, and availability context.</li>
+        <li>Estimates appointment no-show risk with explainable drivers.</li>
+        <li>Generates prescription support notes with allergy and medicine alerts.</li>
+        <li>Calculates an overall patient risk score for triage prioritization.</li>
+        <li>Estimates admission escalation risk from vitals, symptoms, and chronic condition load.</li>
+        <li>Summarizes pasted report text into simple patient-friendly language.</li>
+        <li>Provides a basic chatbot-style triage response and next steps.</li>
+      </ul>
+
+      <div class="empty-state" *ngIf="!results && !loading && !error">
+        <img [src]="'assets/img/success.gif'" alt="AI ready state">
+        <div>
+          <strong>Ready for a realistic demo</strong>
+          <span>Pick a preset or enter your own patient details, then generate a full AI care summary.</span>
+        </div>
+      </div>
+
+      <div class="loading-state" *ngIf="loading">
+        <div class="loading-orb"></div>
+        <p>Analyzing vitals, matching specialists, and generating care insights...</p>
+      </div>
+
+      <p class="note">This module is decision-support only and should not replace a licensed clinician.</p>
+      <p class="error" *ngIf="error">{{ error }}</p>
+    </section>
+  </div>
+
+  <div class="results-banner reveal-card" *ngIf="results">
+    <div class="banner-chip analysis-chip">
+      <span>NLP Triage</span>
+      <strong>{{ results.symptomTextAnalysis.triagePriority }}</strong>
+    </div>
+    <div class="banner-chip success-chip">
+      <span>Condition</span>
+      <strong>{{ results.diseasePrediction.probableCondition }}</strong>
+    </div>
+    <div class="banner-chip risk-chip">
+      <span>Risk</span>
+      <strong>{{ results.patientRisk.level }}</strong>
+    </div>
+    <div class="banner-chip doctor-chip">
+      <span>Recommended Specialty</span>
+      <strong>{{ results.doctorRecommendation.recommendedSpecialization }}</strong>
+    </div>
+    <div class="banner-chip slot-chip">
+      <span>Best Slot</span>
+      <strong>{{ results.slotRecommendation.recommendedSlot || 'Review options' }}</strong>
+    </div>
+  </div>
+
+  <div class="results-grid" *ngIf="results">
+    <section class="result-card accent-indigo reveal-card">
+      <div class="result-head">
+        <div>
+          <p class="section-kicker">Deep Learning Style Intake</p>
+          <h3>Symptom Text Understanding</h3>
+        </div>
+        <span class="result-chip">{{ results.symptomTextAnalysis.triagePriority }}</span>
+      </div>
+      <p><strong>Clinical Intent:</strong> {{ results.symptomTextAnalysis.clinicalIntent }}</p>
+      <p><strong>Recommended Specialty:</strong> {{ results.symptomTextAnalysis.recommendedSpecialization }}</p>
+      <p>{{ results.symptomTextAnalysis.normalizedNarrative }}</p>
+      <p><strong>Detected Symptoms:</strong> {{ results.symptomTextAnalysis.detectedSymptoms.join(', ') || 'No extracted symptoms' }}</p>
+      <p><strong>Urgency Signals:</strong> {{ results.symptomTextAnalysis.urgencySignals.join(', ') || 'No acute signals detected' }}</p>
+    </section>
+
+    <section class="result-card accent-red reveal-card">
+      <div class="result-head">
+        <div>
+          <p class="section-kicker">Model Output</p>
+          <h3>Symptom-Based Disease Prediction</h3>
+        </div>
+        <span class="result-chip">{{ results.diseasePrediction.confidence }}% confidence</span>
+      </div>
+      <p><strong>Probable Condition:</strong> {{ results.diseasePrediction.probableCondition }}</p>
+      <p><strong>Urgency:</strong> {{ results.diseasePrediction.urgency }}</p>
+      <p>{{ results.diseasePrediction.summary }}</p>
+      <p><strong>Matched Symptoms:</strong> {{ results.diseasePrediction.matchedSymptoms.join(', ') || 'None' }}</p>
+    </section>
+
+    <section class="result-card accent-teal reveal-card">
+      <div class="result-head">
+        <div>
+          <p class="section-kicker">Recommendation Engine</p>
+          <h3>Doctor Recommendation By Specialization</h3>
+        </div>
+        <img class="result-icon" [src]="'assets/img/maledoctor.png'" alt="Doctor recommendation">
+      </div>
+      <p><strong>Suggested Specialty:</strong> {{ results.doctorRecommendation.recommendedSpecialization }}</p>
+      <p>{{ results.doctorRecommendation.rationale }}</p>
+      <div class="doctor-item" *ngFor="let doctor of results.doctorRecommendation.doctors">
+        <strong>{{ doctor.doctorname }}</strong>
+        <span>{{ doctor.specialization }} | {{ doctor.experience }} | Match {{ doctor.rankingScore }}/100</span>
+        <p>{{ doctor.reason }}</p>
+      </div>
+    </section>
+
+    <section class="result-card accent-orange reveal-card">
+      <div class="result-head">
+        <div>
+          <p class="section-kicker">Scheduling Intelligence</p>
+          <h3>Smart Slot Recommendation</h3>
+        </div>
+        <span class="result-chip">{{ results.slotRecommendation.recommendedDate || 'Next available' }}</span>
+      </div>
+      <p><strong>Recommended Doctor:</strong> {{ results.slotRecommendation.recommendedDoctor || 'Assigned by specialty' }}</p>
+      <p><strong>Recommended Specialty:</strong> {{ results.slotRecommendation.recommendedSpecialization }}</p>
+      <p><strong>Best Slot:</strong> {{ results.slotRecommendation.recommendedDate }} {{ results.slotRecommendation.recommendedSlot }}</p>
+      <p>{{ results.slotRecommendation.rationale }}</p>
+      <div class="slot-option" *ngFor="let option of results.slotRecommendation.alternatives">
+        <strong>{{ option.doctorname }}</strong>
+        <span>{{ option.specialization }} | {{ option.date }} | {{ option.slot }}</span>
+        <p>Status: {{ option.status }}</p>
+      </div>
+    </section>
+
+    <section class="result-card accent-gold reveal-card">
+      <div class="result-head">
+        <div>
+          <p class="section-kicker">Behavior Model</p>
+          <h3>Appointment No-Show Prediction</h3>
+        </div>
+        <span class="result-chip">{{ results.noShowPrediction.riskLevel }} risk</span>
+      </div>
+      <p><strong>Risk Score:</strong> {{ results.noShowPrediction.riskScore }}/100</p>
+      <ul>
+        <li *ngFor="let driver of results.noShowPrediction.drivers">{{ driver }}</li>
+      </ul>
+      <p class="subheading">Recommended Actions</p>
+      <ul>
+        <li *ngFor="let action of results.noShowPrediction.actions">{{ action }}</li>
+      </ul>
+    </section>
+
+    <section class="result-card accent-purple reveal-card">
+      <div class="result-head">
+        <div>
+          <p class="section-kicker">Medication Intelligence</p>
+          <h3>Prescription Suggestion Support</h3>
+        </div>
+        <img class="result-icon" [src]="'assets/img/medicinelogo.png'" alt="Prescription support">
+      </div>
+      <p>{{ results.prescriptionSupport.summary }}</p>
+      <p class="subheading">Suggestions</p>
+      <ul>
+        <li *ngFor="let item of results.prescriptionSupport.suggestions">{{ item }}</li>
+      </ul>
+      <p class="subheading">Alerts</p>
+      <ul>
+        <li *ngFor="let alert of results.prescriptionSupport.alerts">{{ alert }}</li>
+      </ul>
+      <p class="note">{{ results.prescriptionSupport.disclaimer }}</p>
+    </section>
+
+    <section class="result-card accent-green reveal-card">
+      <div class="result-head">
+        <div>
+          <p class="section-kicker">Risk Intelligence</p>
+          <h3>Patient Risk Scoring</h3>
+        </div>
+        <span class="result-chip">{{ results.patientRisk.level }}</span>
+      </div>
+      <p><strong>Risk Score:</strong> {{ results.patientRisk.score }}/100</p>
+      <ul>
+        <li *ngFor="let contributor of results.patientRisk.contributors">{{ contributor }}</li>
+      </ul>
+      <p class="subheading">Recommendations</p>
+      <ul>
+        <li *ngFor="let rec of results.patientRisk.recommendations">{{ rec }}</li>
+      </ul>
+    </section>
+
+    <section class="result-card accent-slate reveal-card">
+      <div class="result-head">
+        <div>
+          <p class="section-kicker">Escalation Forecast</p>
+          <h3>Admission Risk Prediction</h3>
+        </div>
+        <span class="result-chip">{{ results.admissionRisk.level }}</span>
+      </div>
+      <p><strong>Admission Score:</strong> {{ results.admissionRisk.score }}/100</p>
+      <p class="subheading">Why this level</p>
+      <ul>
+        <li *ngFor="let reason of results.admissionRisk.drivers">{{ reason }}</li>
+      </ul>
+      <p class="subheading">Suggested Actions</p>
+      <ul>
+        <li *ngFor="let action of results.admissionRisk.actions">{{ action }}</li>
+      </ul>
+    </section>
+
+    <section class="result-card accent-rose reveal-card">
+      <div class="result-head">
+        <div>
+          <p class="section-kicker">Clinical NLP Summary</p>
+          <h3>Medical Report Simplifier</h3>
+        </div>
+        <img class="result-icon" [src]="'assets/img/healthcaresystem.png'" alt="Report summary">
+      </div>
+      <p><strong>Clinical Summary</strong></p>
+      <p>{{ results.reportSummary.clinicalSummary }}</p>
+      <p class="subheading">Patient-Friendly Summary</p>
+      <p>{{ results.reportSummary.patientFriendlySummary }}</p>
+      <p class="subheading">Critical Signals</p>
+      <ul>
+        <li *ngFor="let signal of results.reportSummary.highlights">{{ signal }}</li>
+      </ul>
+      <p class="subheading">Suggested Follow-Ups</p>
+      <ul>
+        <li *ngFor="let followUp of results.reportSummary.followUpQuestions">{{ followUp }}</li>
+      </ul>
+    </section>
+
+    <section class="result-card accent-blue reveal-card">
+      <div class="result-head">
+        <div>
+          <p class="section-kicker">Conversational Triage</p>
+          <h3>Chatbot For Basic Triage</h3>
+        </div>
+        <img class="result-icon chatbot-icon" [src]="'assets/img/success.gif'" alt="Chatbot triage">
+      </div>
+      <p><strong>Triage Urgency:</strong> {{ results.triageChat.urgency }}</p>
+      <p>{{ results.triageChat.response }}</p>
+      <p class="subheading">Next Steps</p>
+      <ul>
+        <li *ngFor="let step of results.triageChat.nextSteps">{{ step }}</li>
+      </ul>
+      <p class="subheading">Suggested Follow-Up Questions</p>
+      <div class="follow-up-list">
+        <span class="follow-up-pill" *ngFor="let question of results.triageChat.followUpQuestions">{{ question }}</span>
+      </div>
+      <div class="chatbot-booking-cta">
+        <div>
+          <strong>Ready to book from the chatbot?</strong>
+          <span>Move straight into the appointment form with the recommended specialty and patient details prefilled.</span>
+        </div>
+        <button type="button" class="primary-btn booking-btn" (click)="bookRecommendedAppointment()">
+          Book Recommended Appointment
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,142 @@
+.smart-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 16px 16px 0;
+}
+
+.header-shell {
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  padding: 14px 18px;
+  border-radius: 22px;
+  background: rgba(11, 25, 47, 0.86);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 38px rgba(7, 18, 35, 0.22);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand-cluster,
+.header-link {
+  border: none;
+  background: transparent;
+  color: inherit;
+}
+
+.brand-cluster {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+}
+
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #15a6a1 0%, #2f73ff 100%);
+  font-size: 20px;
+  box-shadow: 0 10px 24px rgba(47, 115, 255, 0.28);
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-copy small,
+.user-meta small {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.brand-copy strong,
+.user-meta strong {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.header-link,
+.header-role-pill,
+.header-user-pill {
+  border-radius: 999px;
+  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.header-link:hover,
+.header-user-pill:hover,
+.header-role-pill:hover,
+.brand-cluster:hover {
+  transform: translateY(-1px);
+}
+
+.logout-link {
+  background: rgba(213, 70, 90, 0.18);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 960px) {
+  .header-shell {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-actions {
+    justify-content: stretch;
+  }
+}
+
+@media (max-width: 640px) {
+  .smart-header {
+    padding: 10px 10px 0;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-link,
+  .header-role-pill,
+  .header-user-pill {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,105 @@
+<app-header></app-header>
+
+<div class="dashboard-shell">
+  <button class="menuToggle"><i class="fa fa-bars"></i></button>
+
+  <div class="dashboard-layout">
+    <aside class="menu">
+      <div class="profile-panel">
+        <div class="profile-avatar">
+          <img [src]="'assets/img/admin.png'" alt="Admin">
+        </div>
+        <h3>{{ loggedUser }}</h3>
+        <p>Admin control tower</p>
+      </div>
+
+      <ul>
+        <li><a [routerLink]="['/addDoctor']"><i class="fa fa-plus"></i><span>Add Doctor</span></a></li>
+        <li><a [routerLink]="['/approvedoctors']"><i class="fa fa-check"></i><span>Approve Doctors</span></a></li>
+        <li><a [routerLink]="['/doctorlist']"><i class="fa fa-user-md"></i><span>Doctor List</span></a></li>
+        <li><a [routerLink]="['/userlist']"><i class="fa fa-user"></i><span>Users</span></a></li>
+        <li><a [routerLink]="['/patientlist']"><i class="fa fa-user-o"></i><span>Patients</span></a></li>
+        <li><a [routerLink]="['/careoperations']"><i class="fa fa-sitemap"></i><span>Operations Center</span></a></li>
+      </ul>
+    </aside>
+
+    <main class="dashboard-content">
+      <section class="dashboard-hero app-hero-gradient app-fade-up">
+        <div>
+          <p class="app-section-tag dashboard-kicker">Admin Overview</p>
+          <h1>Run the hospital platform from one live operations dashboard.</h1>
+          <p>Track people, approvals, prescriptions, appointments, and system health with a cleaner command-center layout.</p>
+        </div>
+
+        <div class="hero-mini-cards">
+          <div class="mini-card">
+            <strong>Admin</strong>
+            <span>Operations and approvals</span>
+          </div>
+          <div class="mini-card">
+            <strong>Live Metrics</strong>
+            <span>Users, doctors, appointments, and prescriptions</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="stat-grid">
+        <article class="stat-card teal-card">
+          <div class="stat-icon"><i class="fa fa-user"></i></div>
+          <h3>Total Users</h3>
+          <p *ngFor="let user of users | async">{{user}} active users</p>
+        </article>
+
+        <article class="stat-card green-card">
+          <div class="stat-icon"><i class="fa fa-user-md"></i></div>
+          <h3>Total Doctors</h3>
+          <p *ngFor="let doctor of doctors | async">{{doctor}} doctors onboarded</p>
+        </article>
+
+        <article class="stat-card amber-card">
+          <div class="stat-icon"><i class="fa fa-calendar"></i></div>
+          <h3>Total Slots</h3>
+          <p *ngFor="let slot of slots | async">{{slot}} appointment slots</p>
+        </article>
+
+        <article class="stat-card rose-card">
+          <div class="stat-icon"><i class="fa fa-user-o"></i></div>
+          <h3>Total Patients</h3>
+          <p *ngFor="let patient of patients | async">{{patient}} patient records</p>
+        </article>
+
+        <article class="stat-card gold-card">
+          <div class="stat-icon"><i class="fa fa-sticky-note"></i></div>
+          <h3>Prescriptions</h3>
+          <p *ngFor="let prescription of prescriptions | async">{{prescription}} prescriptions generated</p>
+        </article>
+
+        <article class="stat-card blue-card">
+          <div class="stat-icon"><i class="fa fa-check"></i></div>
+          <h3>Appointments</h3>
+          <p *ngFor="let appointment of appointments | async">{{appointment}} appointments in the system</p>
+        </article>
+      </section>
+
+      <section class="feature-banner app-glass-card app-fade-up">
+        <div>
+          <p class="app-section-tag">New flagship experience</p>
+          <h2>Future Care Hub</h2>
+          <p>Open the new all-in-one feature center for product workflows, AI and deep-learning demos, analytics, family care, reviews, reminders, and smart hospital capabilities.</p>
+        </div>
+        <button class="app-primary-btn" [routerLink]="['/futurecarehub']">Open Future Care Hub</button>
+      </section>
+
+      <section class="feature-banner app-glass-card app-fade-up">
+        <div>
+          <p class="app-section-tag">New operations module</p>
+          <h2>Care Operations Center</h2>
+          <p>Review onboarding queue, service capacity, platform analytics, billing-style signals, and operational next steps from one admin command center.</p>
+        </div>
+        <button class="app-primary-btn" [routerLink]="['/careoperations']">Open Operations Center</button>
+      </section>
+    </main>
+  </div>
+</div>
+
+<app-footer></app-footer>

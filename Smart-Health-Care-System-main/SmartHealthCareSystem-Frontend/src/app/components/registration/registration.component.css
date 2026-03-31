@@ -1,0 +1,156 @@
+.registration-shell {
+  width: min(1320px, calc(100% - 28px));
+  margin: 24px auto 34px;
+}
+
+.registration-stage {
+  display: grid;
+  grid-template-columns: 0.86fr 1.14fr;
+  overflow: hidden;
+}
+
+.register-left,
+.register-right {
+  padding: 32px;
+}
+
+.register-left-copy h2 {
+  font-size: clamp(38px, 4.4vw, 60px);
+  line-height: 1;
+  margin: 8px 0 16px;
+}
+
+.register-left-copy p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+}
+
+.register-kicker {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.left-visual {
+  margin: 26px 0 18px;
+  padding: 18px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.left-visual img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.left-cta p {
+  margin-bottom: 12px;
+}
+
+.register-right {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.register-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.register-heading {
+  font-size: 40px;
+  color: #1a3350;
+}
+
+.register .nav-tabs,
+.nav-tabs {
+  margin: 0;
+  border: none;
+  padding: 8px;
+  border-radius: 999px;
+  background: #edf4ff;
+  width: auto;
+  display: inline-flex;
+  gap: 8px;
+}
+
+.nav-item {
+  list-style: none;
+}
+
+.register .nav-tabs .nav-link,
+.nav-tabs .nav-link {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  color: #5e728d;
+  font-weight: 700;
+}
+
+.highlight1,
+.highlight2 {
+  background: linear-gradient(135deg, #13646b 0%, #2f73ff 100%);
+  color: #fff !important;
+}
+
+.register-error {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.register-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #1f3550;
+  font-weight: 700;
+}
+
+.helper-text {
+  color: #6b7f99;
+  font-size: 12px;
+}
+
+.register-submit-row {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.terms-check {
+  color: #63758f;
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .registration-stage,
+  .register-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .register-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .registration-shell {
+    width: calc(100% - 20px);
+  }
+
+  .register-left,
+  .register-right {
+    padding: 22px;
+  }
+}

@@ -1,0 +1,205 @@
+<div class="landing-shell">
+  <section class="landing-hero">
+    <div class="hero-noise"></div>
+    <div class="hero-orb orb-one"></div>
+    <div class="hero-orb orb-two"></div>
+    <div class="hero-orb orb-three"></div>
+
+    <div class="landing-nav">
+      <div class="landing-brand">
+        <span class="landing-brand-mark"><i class="fa fa-heartbeat"></i></span>
+        <div>
+          <small>Care Made Brighter</small>
+          <strong>Smart Healthcare System</strong>
+        </div>
+      </div>
+
+      <div class="landing-actions">
+        <button class="ghost-action" [routerLink]="['/login']">Login</button>
+        <button class="app-primary-btn" [routerLink]="['/registration']">Create Account</button>
+      </div>
+    </div>
+
+    <div class="landing-hero-grid">
+      <div class="landing-copy">
+        <p class="hero-tag">Playful, modern, human-centered care</p>
+        <h1>Healthcare that feels alive, friendly, and genuinely easy to use.</h1>
+        <p class="landing-intro">
+          Explore a smarter digital clinic with animated care journeys, role-based dashboards, AI guidance,
+          appointment flows, and a more joyful experience from the very first screen.
+        </p>
+
+        <div class="hero-cta-row">
+          <button class="app-primary-btn pulse-cta" [routerLink]="['/registration']">Start Your Journey</button>
+          <button class="app-secondary-btn" [routerLink]="['/login']">Open Login Center</button>
+        </div>
+
+        <div class="app-chip-row hero-chip-row">
+          <span class="hero-chip"><i class="fa fa-user-md"></i> Doctors, admin, and patients</span>
+          <span class="hero-chip"><i class="fa fa-calendar-check-o"></i> Animated care workflow</span>
+          <span class="hero-chip"><i class="fa fa-comments-o"></i> Live chatbot everywhere</span>
+          <span class="hero-chip"><i class="fa fa-heartbeat"></i> AI-assisted guidance</span>
+        </div>
+
+        <div class="headline-stats">
+          <div class="headline-stat">
+            <strong>3</strong>
+            <span>smart portals</span>
+          </div>
+          <div class="headline-stat">
+            <strong>10+</strong>
+            <span>AI insight layers</span>
+          </div>
+          <div class="headline-stat">
+            <strong>24/7</strong>
+            <span>live care access</span>
+          </div>
+        </div>
+
+        <div class="marquee-strip">
+          <div class="marquee-track">
+            <span>appointment flow</span>
+            <span>doctor discovery</span>
+            <span>AI health assistant</span>
+            <span>operations center</span>
+            <span>smart slot guidance</span>
+            <span>prescription support</span>
+            <span>appointment flow</span>
+            <span>doctor discovery</span>
+            <span>AI health assistant</span>
+            <span>operations center</span>
+            <span>smart slot guidance</span>
+            <span>prescription support</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-visual">
+        <div class="visual-halo"></div>
+        <div class="visual-ring ring-a"></div>
+        <div class="visual-ring ring-b"></div>
+
+        <div class="visual-card visual-card-top">
+          <img [src]="'assets/img/maledoctor.png'" alt="Doctor profile">
+          <div>
+            <strong>Doctor Energy</strong>
+            <span>Schedules, patients, and prescriptions all in one moving workspace.</span>
+          </div>
+        </div>
+
+        <img class="hero-illustration" [src]="'assets/img/healthcaresystem.png'" alt="Healthcare illustration">
+
+        <div class="visual-card visual-card-mid">
+          <img [src]="'assets/img/admin.png'" alt="Admin flow">
+          <div>
+            <strong>Operations Pulse</strong>
+            <span>Admins can watch capacity, approvals, and analytics in real time.</span>
+          </div>
+        </div>
+
+        <div class="visual-card visual-card-bottom">
+          <img [src]="'assets/img/success.gif'" alt="Care journey success">
+          <div>
+            <strong>Feel-Good Journey</strong>
+            <span>Fun visuals, strong motion, and a realistic care path from start to finish.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="floating-highlights">
+    <article class="highlight-card">
+      <span class="highlight-label">Fresh</span>
+      <h3>Colorful first impression</h3>
+      <p>Designed to feel modern, warm, and less intimidating than a typical hospital portal.</p>
+    </article>
+    <article class="highlight-card">
+      <span class="highlight-label">Animated</span>
+      <h3>Motion with purpose</h3>
+      <p>Floating cards, soft glows, marquee movement, and layered depth make the page feel more alive.</p>
+    </article>
+    <article class="highlight-card">
+      <span class="highlight-label">Useful</span>
+      <h3>Not just pretty</h3>
+      <p>Quickly jump into login, registration, AI guidance, and the role-based experience that fits you.</p>
+    </article>
+  </section>
+
+  <section class="landing-roles app-glass-card">
+    <div class="section-copy">
+      <p class="app-section-tag">Three bright entry points</p>
+      <h2>Choose the vibe that fits your role</h2>
+      <p>
+        Every role gets its own space, but the whole product stays visually connected and easy to move through.
+      </p>
+    </div>
+
+    <div class="role-grid">
+      <article class="role-card admin-card" (click)="navigate()">
+        <div class="role-glow"></div>
+        <div class="role-icon-wrap">
+          <img [src]="'assets/img/admin.png'" alt="Admin">
+        </div>
+        <h3>Admin Control</h3>
+        <p>Approve doctors, monitor operations, watch analytics, and keep the whole system moving smoothly.</p>
+        <span>Run the platform with confidence</span>
+      </article>
+
+      <article class="role-card doctor-card" (click)="navigate()">
+        <div class="role-glow"></div>
+        <div class="role-icon-wrap">
+          <img [src]="'assets/img/maledoctor.png'" alt="Doctor">
+        </div>
+        <h3>Doctor Workspace</h3>
+        <p>Review schedules, manage patient flow, issue prescriptions, and stay focused on real care delivery.</p>
+        <span>Bring calm to clinical work</span>
+      </article>
+
+      <article class="role-card user-card" (click)="navigate()">
+        <div class="role-glow"></div>
+        <div class="role-icon-wrap">
+          <img [src]="'assets/img/maleuser.png'" alt="User">
+        </div>
+        <h3>Patient Portal</h3>
+        <p>Find doctors, book visits, use AI guidance, and follow your full care journey in a friendly interface.</p>
+        <span>Feel guided, not overwhelmed</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="experience-band">
+    <div class="experience-copy">
+      <p class="app-section-tag">Fun meets functionality</p>
+      <h2>A homepage that feels more like a lively digital product than a plain hospital website.</h2>
+      <p>
+        The motion is soft, the colors are optimistic, and the experience is built to make people curious enough to explore.
+      </p>
+    </div>
+
+    <div class="service-grid">
+      <div class="service-card service-teal">
+        <i class="fa fa-stethoscope"></i>
+        <h3>Doctor Discovery</h3>
+        <p>Browse specialists and move from curiosity to booking without friction.</p>
+      </div>
+      <div class="service-card service-gold">
+        <i class="fa fa-calendar"></i>
+        <h3>Appointment Journey</h3>
+        <p>Availability, booking, triage, and next-step guidance all feel connected.</p>
+      </div>
+      <div class="service-card service-blue">
+        <i class="fa fa-comments-o"></i>
+        <h3>Live AI Chat</h3>
+        <p>The floating assistant follows you everywhere and turns chat into action.</p>
+      </div>
+      <div class="service-card service-rose">
+        <i class="fa fa-line-chart"></i>
+        <h3>Operations Center</h3>
+        <p>Bring analytics, care lifecycle, notifications, and billing-style signals into one place.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

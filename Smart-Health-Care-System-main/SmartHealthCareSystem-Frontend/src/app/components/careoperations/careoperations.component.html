@@ -1,0 +1,172 @@
+<app-header></app-header>
+
+<div class="ops-shell">
+  <section class="ops-hero app-hero-gradient">
+    <div class="ops-copy">
+      <p class="app-section-tag">Operations Suite</p>
+      <h1>Care Operations Center</h1>
+      <p>
+        A single realistic workspace for appointment lifecycle visibility, schedule availability, notifications, records,
+        analytics, billing-style summaries, and next-step actions tailored to your current role.
+      </p>
+
+      <div class="ops-badges">
+        <span>Appointment Lifecycle</span>
+        <span>Doctor Availability</span>
+        <span>Notifications</span>
+        <span>Medical Records</span>
+        <span>Analytics</span>
+        <span>Billing View</span>
+      </div>
+    </div>
+
+    <div class="ops-summary-card app-glass-card">
+      <p class="summary-kicker">Current workspace</p>
+      <h2>{{ displayName }}</h2>
+      <p>{{ role | uppercase }} operations view</p>
+
+      <div class="slot-pill-grid">
+        <div class="slot-pill" *ngFor="let slotCard of slotCards">
+          <strong>{{ slotCard.title }}</strong>
+          <span>{{ slotCard.value }}</span>
+          <small>{{ slotCard.detail }}</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ops-loading app-glass-card" *ngIf="loading">
+    <div class="loading-dot"></div>
+    <div>
+      <strong>Building your operations view</strong>
+      <p>Pulling appointments, schedules, prescriptions, and metrics into one command center.</p>
+    </div>
+  </div>
+
+  <div class="ops-error app-glass-card" *ngIf="error && !loading">
+    <strong>Unable to load operations data</strong>
+    <p>{{ error }}</p>
+  </div>
+
+  <ng-container *ngIf="!loading && !error">
+    <section class="metric-grid">
+      <article class="metric-card" *ngFor="let metric of metrics" [ngClass]="metric.accentClass">
+        <div class="metric-icon"><i class="fa" [ngClass]="metric.icon"></i></div>
+        <div>
+          <p>{{ metric.label }}</p>
+          <strong>{{ metric.value }}</strong>
+          <span>{{ metric.detail }}</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="ops-panel wide-panel">
+        <div class="panel-head">
+          <div>
+            <p class="app-section-tag">Lifecycle</p>
+            <h2>Appointment and Care Journey</h2>
+          </div>
+          <span class="panel-chip">{{ lifecycleSteps.length }} stages</span>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item" *ngFor="let step of lifecycleSteps">
+            <div class="timeline-dot"></div>
+            <div class="timeline-copy">
+              <div class="timeline-title-row">
+                <strong>{{ step.title }}</strong>
+                <span>{{ step.badge }}</span>
+              </div>
+              <p>{{ step.detail }}</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="ops-panel">
+        <div class="panel-head">
+          <div>
+            <p class="app-section-tag">Notifications</p>
+            <h2>Operational Alerts</h2>
+          </div>
+        </div>
+
+        <div class="alert-card" *ngFor="let alert of alerts" [ngClass]="'alert-' + alert.tone">
+          <strong>{{ alert.title }}</strong>
+          <p>{{ alert.body }}</p>
+        </div>
+
+        <ul class="stack-list">
+          <li *ngFor="let note of notifications">{{ note }}</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="ops-panel">
+        <div class="panel-head">
+          <div>
+            <p class="app-section-tag">Availability</p>
+            <h2>Doctor and Slot Coverage</h2>
+          </div>
+        </div>
+        <ul class="stack-list">
+          <li *ngFor="let item of availabilityHighlights">{{ item }}</li>
+        </ul>
+      </article>
+
+      <article class="ops-panel">
+        <div class="panel-head">
+          <div>
+            <p class="app-section-tag">Records</p>
+            <h2>Medical Record Signals</h2>
+          </div>
+        </div>
+        <ul class="stack-list">
+          <li *ngFor="let item of recordsHighlights">{{ item }}</li>
+        </ul>
+      </article>
+
+      <article class="ops-panel">
+        <div class="panel-head">
+          <div>
+            <p class="app-section-tag">Analytics</p>
+            <h2>Service Analytics</h2>
+          </div>
+        </div>
+        <ul class="stack-list">
+          <li *ngFor="let item of analyticsHighlights">{{ item }}</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="ops-panel">
+        <div class="panel-head">
+          <div>
+            <p class="app-section-tag">Billing</p>
+            <h2>Billing and Revenue View</h2>
+          </div>
+        </div>
+        <ul class="stack-list">
+          <li *ngFor="let item of billingHighlights">{{ item }}</li>
+        </ul>
+      </article>
+
+      <article class="ops-panel">
+        <div class="panel-head">
+          <div>
+            <p class="app-section-tag">Next Best Actions</p>
+            <h2>Workflow Guidance</h2>
+          </div>
+        </div>
+        <div class="action-pills">
+          <span class="action-pill" *ngFor="let item of smartActions">{{ item }}</span>
+        </div>
+      </article>
+    </section>
+  </ng-container>
+</div>
+
+<app-footer></app-footer>
