@@ -1,27 +1,78 @@
 <app-header></app-header>
 
-<div class="heading-text"><b>Doctors List</b></div>
-<small class="subheading-text"><b>(only approved doctors are suggested by the management)</b></small>
-<div class="row">
-        <div *ngFor="let doctor of doctors | async" class="col-4 card" id="bloodCards">
-         <div class="img-block">
-            <div class="circle">
-                <img *ngIf="doctor.gender === 'Male' || doctor.gender === 'male'"  class="bloodimg" [src]="'assets/img/maledoctor.png'" width="100" height="100">
-                <img *ngIf="doctor.gender === 'Female' || doctor.gender === 'female'"  class="bloodimg" [src]="'assets/img/femaledoctor.png'" width="100" height="120">
-            </div>
+<section class="doctor-directory">
+  <div class="directory-hero">
+    <p class="eyebrow">Care Network</p>
+    <h1>Doctors List</h1>
+    <p class="hero-copy">
+      Browse approved specialists currently available in the platform. Only verified
+      doctors with active profiles are shown here for safer appointment booking.
+    </p>
+    <div class="directory-stats">
+      <div class="stat-chip">
+        <span class="stat-value">{{ doctors.length }}</span>
+        <span class="stat-label">Approved Doctors</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="doctor-grid" *ngIf="doctors.length; else emptyState">
+    <article class="doctor-card" *ngFor="let doctor of doctors">
+      <div class="doctor-card-top">
+        <div class="doctor-profile">
+          <div class="doctor-photo-ring">
+            <img
+              *ngIf="doctor.gender === 'Male' || doctor.gender === 'male'; else femaleDoctor"
+              class="doctor-photo"
+              [src]="'assets/img/maledoctor.png'"
+              alt="Doctor portrait"
+            />
+            <ng-template #femaleDoctor>
+              <img
+                class="doctor-photo doctor-photo-female"
+                [src]="'assets/img/femaledoctor.png'"
+                alt="Doctor portrait"
+              />
+            </ng-template>
+          </div>
+
+          <div class="doctor-intro">
+            <h2>{{ doctor.doctorname }}</h2>
+            <p class="doctor-specialization">{{ doctor.specialization }}</p>
+            <p class="doctor-email">{{ doctor.email }}</p>
+          </div>
         </div>
-        <div class="card-block">
-            <div class="text"><b style="color: maroon;"> {{doctor.doctorname}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{doctor.email}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{doctor.experience}} yrs of experience </b></div>
-            <div class="text"><b style="color: maroon;"> {{doctor.specialization}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{doctor.gender}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{doctor.mobile}} </b></div>
+
+        <span class="status-badge">Approved</span>
+      </div>
+
+      <div class="doctor-meta-grid">
+        <div class="meta-tile">
+          <span class="meta-label">Experience</span>
+          <span class="meta-value">{{ doctor.experience }} yrs</span>
         </div>
-        <div style="border: none;" class="status-btn" *ngIf="doctor.status === 'accept'"><b style="font-style: italic; font-weight: bolder;">Approved Doctor</b></div>
-        <div style="border: none;" class="status-btn1" *ngIf="doctor.status === 'false'"><b style="font-style: italic; font-weight: bolder;">Approval Pending</b></div>
-        <div style="border: none;" class="status-btn2" *ngIf="doctor.status === 'reject'"><b style="font-style: italic; font-weight: bolder;">Not Approved</b></div>
+        <div class="meta-tile">
+          <span class="meta-label">Gender</span>
+          <span class="meta-value">{{ doctor.gender }}</span>
         </div>
-</div>
-<br><br><br>
+        <div class="meta-tile">
+          <span class="meta-label">Mobile</span>
+          <span class="meta-value">{{ doctor.mobile }}</span>
+        </div>
+        <div class="meta-tile" *ngIf="doctor.previoushospital">
+          <span class="meta-label">Hospital</span>
+          <span class="meta-value">{{ doctor.previoushospital }}</span>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <h2>No approved doctors are available right now.</h2>
+      <p>Once doctors are approved and publish active slots, they will appear here.</p>
+    </div>
+  </ng-template>
+</section>
+
 <app-footer></app-footer>

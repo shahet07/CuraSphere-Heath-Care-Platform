@@ -1,6 +1,8 @@
 package com.application.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Random;
@@ -19,6 +21,7 @@ public class AppointmentBookingService
 	@Autowired
 	private AppointmentsRepository appointmentsRepository;
 	
+	@CacheEvict(value = {"slotCatalog", "slotCatalogByEmail"}, allEntries = true)
 	public void saveSlots(Slots slot)
 	{
 		Random random = new Random();   
@@ -26,11 +29,13 @@ public class AppointmentBookingService
 		slotBookingRepository.saveSlots(val, slot.getEmail(),slot.getDoctorname(),slot.getSpecialization(),slot.getAmslot(),"unbooked",slot.getNoonslot(),"unbooked",slot.getPmslot(),"unbooked",slot.getDate(),slot.getPatienttype());
 	}
 	
+	@Cacheable(value = "slotCatalogByEmail", key = "#email")
 	public List<Slots> getSlotDetails(String email)
 	{
 		return (List<Slots>)slotBookingRepository.findByEmail(email);
 	}
 	
+	@Cacheable("slotCatalog")
 	public List<Slots> getSlotList()
 	{
 		return (List<Slots>)slotBookingRepository.findAll();
@@ -51,18 +56,21 @@ public class AppointmentBookingService
 		return appointmentsRepository.save(appointment);
 	}
 	
+	@CacheEvict(value = {"slotCatalog", "slotCatalogByEmail"}, allEntries = true)
 	public int bookAMSlot(String doctorname, String date)
 	{
 		appointmentsRepository.updateAmstatus(doctorname, date);
 		return 1;
 	}
 	
+	@CacheEvict(value = {"slotCatalog", "slotCatalogByEmail"}, allEntries = true)
 	public int  bookNoonSlot(String doctorname, String date)
 	{
 		appointmentsRepository.updateNoonstatus(doctorname, date);
 		return 1;
 	}
 	
+	@CacheEvict(value = {"slotCatalog", "slotCatalogByEmail"}, allEntries = true)
 	public int bookPMSlot(String doctorname, String date)
 	{
 		appointmentsRepository.updatePmstatus(doctorname, date);

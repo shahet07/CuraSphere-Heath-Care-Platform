@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.LinkedHashSet;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,6 +37,9 @@ public class DoctorController
 	
 	@Autowired
 	private PrescriptionService prescriptionService;
+
+	@Autowired
+	private CacheManager cacheManager;
 	
 	@GetMapping("/doctorlist")
 	@CrossOrigin(origins = "http://localhost:4200")
@@ -236,6 +241,28 @@ public class DoctorController
 		return new ResponseEntity<Doctor>(doctorobj, HttpStatus.OK);
 	}
 	
+	@GetMapping("/redis/cache/health")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public ResponseEntity<List<String>> getRedisCacheHealth()
+	{
+		List<String> status = new ArrayList<>();
+		status.add("Cache manager: " + cacheManager.getClass().getSimpleName());
+		status.add("Doctors cache ready");
+		status.add("Slots cache ready");
+		return new ResponseEntity<List<String>>(status, HttpStatus.OK);
+	}
+
+	@GetMapping("/slotAvailabilitySummary")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public ResponseEntity<Set<String>> getSlotAvailabilitySummary() throws Exception
+	{
+		List<Slots> slots = appointmentBookingService.getSlotList();
+		Set<String> summary = slots.stream()
+			.map(slot -> slot.getDoctorname() + " | " + slot.getDate() + " | " + slot.getSpecialization())
+			.collect(Collectors.toCollection(LinkedHashSet::new));
+		return new ResponseEntity<Set<String>>(summary, HttpStatus.OK);
+	}
+
 	@GetMapping("/patientlistbydoctoremailanddate/{email}")
 	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Appointments>> getPatientDetailsAndDate(@PathVariable String email) throws Exception

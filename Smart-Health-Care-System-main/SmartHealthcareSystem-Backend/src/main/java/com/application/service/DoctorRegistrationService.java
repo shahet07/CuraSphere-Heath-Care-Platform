@@ -3,6 +3,8 @@ package com.application.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.application.model.Doctor;
 import com.application.repository.DoctorRegistrationRepository;
@@ -13,26 +15,31 @@ public class DoctorRegistrationService
 	@Autowired
 	private DoctorRegistrationRepository doctorRegistrationRepo;
 	
+	@CacheEvict(value = {"doctorCatalog", "slotCatalog", "slotCatalogByEmail"}, allEntries = true)
 	public Doctor saveDoctor(Doctor  doctor)
 	{
 		return doctorRegistrationRepo.save(doctor);
 	}
 	
+	@CacheEvict(value = {"doctorCatalog", "slotCatalog", "slotCatalogByEmail"}, allEntries = true)
 	public Doctor updateDoctorProfile(Doctor doctor)
 	{
 		return doctorRegistrationRepo.save(doctor);
 	}
 	
+	@Cacheable("doctorCatalog")
 	public List<Doctor> getAllDoctors()
 	{
 		return (List<Doctor>)doctorRegistrationRepo.findAll();
 	}
 	
+	@CacheEvict(value = {"doctorCatalog", "slotCatalog", "slotCatalogByEmail"}, allEntries = true)
 	public void updateStatus(String email)
 	{
 		doctorRegistrationRepo.updateStatus(email);
 	}
 	
+	@CacheEvict(value = {"doctorCatalog", "slotCatalog", "slotCatalogByEmail"}, allEntries = true)
 	public void rejectStatus(String email)
 	{
 		doctorRegistrationRepo.rejectStatus(email);

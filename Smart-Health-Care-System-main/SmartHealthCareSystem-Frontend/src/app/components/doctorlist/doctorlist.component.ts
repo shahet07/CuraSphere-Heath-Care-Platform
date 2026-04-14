@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Doctor } from 'src/app/models/doctor';
 import { DoctorService } from 'src/app/services/doctor.service';
 
@@ -10,13 +10,26 @@ import { DoctorService } from 'src/app/services/doctor.service';
 })
 export class DoctorlistComponent implements OnInit {
 
-  doctors : Observable<Doctor[]> | undefined;
+  doctors: Doctor[] = [];
 
   constructor(private _service : DoctorService) { }
 
   ngOnInit(): void
   {
-    this.doctors = this._service.getDoctorList();
+    this._service.getDoctorList()
+      .pipe(
+        map((doctors: Doctor[]) =>
+          (doctors || []).filter((doctor) =>
+            !!doctor &&
+            !!doctor.doctorname &&
+            !!doctor.email &&
+            doctor.status === 'accept'
+          )
+        )
+      )
+      .subscribe((doctors) => {
+        this.doctors = doctors;
+      });
   }
 
 }
